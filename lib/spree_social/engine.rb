@@ -1,16 +1,20 @@
+# frozen_string_literal: true
+
 module SpreeSocial
   OAUTH_PROVIDERS = [
     %w(Facebook facebook true),
     %w(Twitter twitter false),
     %w(Github github false),
-    %w(Google google_oauth2 true),
-    %w(Amazon amazon false)
+    %w(Google google_oauth2 true)
   ]
 
   class Engine < Rails::Engine
     engine_name 'spree_social'
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    # Rails 7+ compatibility: Use initializer instead of modifying frozen autoload_paths
+    initializer 'spree_social.eager_load_paths', before: :set_autoload_paths do |app|
+      app.config.eager_load_paths << "#{config.root}/lib"
+    end
 
     # Resolves omniauth_callback error on development env
     # See https://github.com/spree-contrib/spree_social/issues/193#issuecomment-296585601
@@ -23,6 +27,7 @@ module SpreeSocial
     end
 
     initializer 'spree_social.environment', before: 'spree.environment' do
+      require_dependency 'spree/social_configuration'
       Spree::SocialConfig = Spree::SocialConfiguration.new
     end
 
