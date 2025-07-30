@@ -3,7 +3,7 @@ require 'capybara/rails'
 require 'capybara-screenshot/rspec'
 require "selenium-webdriver"
 
-Selenium::WebDriver::Chrome::Service.driver_path = ENV.fetch('CHROME_DRIVER_PATH', nil) if ENV['CHROME_DRIVER_PATH']
+Selenium::WebDriver::Chrome::Service.driver_path = "/Users/javierbotero/drivers/chromedriver-mac-x64/chromedriver"
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :requests
