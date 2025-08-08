@@ -9,7 +9,7 @@
     <% Spree::AuthenticationMethod.available_for(@spree_user).each do |method| %>
       <%= button_to path_for_omniauth(@spree_user, method.provider),
                     class: "d-inline-block #{method.provider.to_url}" do %>
-        <i class="fa-brands fa-google"></i>
+        <%= icon_by_provider(method.provider.to_url) %>
       <% end if method.active %>
     <% end %>
   </div>
