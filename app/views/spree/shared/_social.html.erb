@@ -8,9 +8,9 @@
   <div class="text-center">
     <% Spree::AuthenticationMethod.available_for(@spree_user).each do |method| %>
       <%= button_to path_for_omniauth(@spree_user, method.provider),
-                    class: "d-inline-block #{method.provider.to_url}" do
-        image_tag(method.provider.to_url, class: 'd-inline-block')
-      end if method.active %>
+                    class: "d-inline-block #{method.provider.to_url}" do %>
+        <i class="fa-brands fa-google"></i>
+      <% end if method.active %>
     <% end %>
   </div>
 </div>

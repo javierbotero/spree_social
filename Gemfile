@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 # they need to live in the development and test groups
+# these are just for tests in the spree_social gem
 group :development, :test do
   gem 'spree', '~> 4.8.0'
   gem 'spree_backend', '~> 4.8.0'
