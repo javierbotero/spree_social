@@ -2,6 +2,7 @@
 ENV['RAILS_ENV'] = 'test'
 
 require File.expand_path('../dummy/config/environment.rb', __FILE__)
+require 'spree/testing_support/controller_requests'
 require 'rspec/rails'
 require 'devise'
 

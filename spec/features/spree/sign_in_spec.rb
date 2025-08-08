@@ -54,8 +54,7 @@ RSpec.feature 'signing in using Omniauth', :js do
         api_secret: 'fake',
         environment: Rails.env,
         active: true)
-      OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[:twitter] = {
+      OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
         'provider' => 'twitter',
         'uid' => '123545',
         'info' => {
@@ -66,12 +65,13 @@ RSpec.feature 'signing in using Omniauth', :js do
           'token' => 'mock_token',
           'secret' => 'mock_secret'
         }
-      }
+      })
+      SpreeSocial.init_provider('twitter')
     end
 
     scenario 'going to sign in' do
       visit spree.new_spree_user_session_path
-      find('a#twitter').click
+      find('button.d-inline-block.twitter').click
       expect(page).to have_text 'One more step to complete your registration from Twitter'
       fill_in 'Email', with: 'user@example.com'
       if Spree.version.to_f < 4.0

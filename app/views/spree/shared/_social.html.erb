@@ -7,16 +7,10 @@
 
   <div class="text-center">
     <% Spree::AuthenticationMethod.available_for(@spree_user).each do |method| %>
-      <%= link_to(
-        content_tag(:i,
-          '',
-          class: "d-inline-block icon-spree-#{method.provider.to_url}-circled"
-        ),
-        path_for_omniauth(@spree_user, method.provider),
-        id: method.provider.to_url,
-        title: Spree.t(:sign_in_with, provider: method.provider),
-        class: 'd-inline-block'
-      ) if method.active %>
+      <%= button_to path_for_omniauth(@spree_user, method.provider),
+                    class: "d-inline-block #{method.provider.to_url}" do
+        image_tag(method.provider.to_url, class: 'd-inline-block')
+      end if method.active %>
     <% end %>
   </div>
 </div>
