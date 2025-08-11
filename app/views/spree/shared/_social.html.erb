@@ -8,7 +8,7 @@
   <div class="text-center">
     <% Spree::AuthenticationMethod.available_for(@spree_user).each do |method| %>
       <%= link_to path_for_omniauth(@spree_user, method.provider),
-                    class: "d-inline-block #{method.provider.to_url}",
+                    class: "d-inline-block #{method.provider.to_url} btn btn-block btn-outline-primary spree-btn spree-mb-large",
                     data: { turbo: false } do %>
         <%= icon_by_provider(method.provider) %>
       <% end if method.active %>
