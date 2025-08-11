@@ -110,7 +110,6 @@ RSpec.feature 'signing in using Omniauth', :js do
 
     scenario 'going to sign in' do
       visit spree.new_spree_user_session_path
-      save_and_open_page
       find("a.d-inline-block.#{provider.to_url}").click
       expect(page).to have_text "One more step to complete your registration from #{provider.capitalize}"
       fill_in 'Email', with: 'user@example.com'
