@@ -17,6 +17,7 @@ group :development, :test do
   gem 'selenium-webdriver', '>= 4.8'
 
   gem 'actionmailer', '~> 6.1'
+  gem 'ffaker'
   gem 'byebug', '~> 11.1'
 end
 
