@@ -20,8 +20,8 @@ RSpec.feature 'Admin Authentication Methods', :js do
       click_link 'New Authentication Method'
       expect(page).to have_text 'Back To Authentication Methods List'
 
-      select2 'Test', from: 'Environment'
-      select2 'Github', from: 'Social Provider'
+      select 'Test', from: 'Environment'
+      select 'Github', from: 'Social Provider'
       fill_in 'API Key', with: 'KEY123'
       fill_in 'API Secret', with: 'SEC123'
 

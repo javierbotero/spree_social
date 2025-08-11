@@ -31,7 +31,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'omniauth-facebook'
   s.add_runtime_dependency 'omniauth-github'
   s.add_runtime_dependency 'omniauth-google-oauth2'
-  # s.add_runtime_dependency 'deface', '~> 1.0'
+  s.add_runtime_dependency 'deface', '~> 1.0'
+  s.add_runtime_dependency 'omniauth-rails_csrf_protection'
 
   s.add_development_dependency 'spree_dev_tools'
 end

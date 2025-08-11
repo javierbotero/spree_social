@@ -5,7 +5,7 @@ module Spree
     def self.prepended(base)
       base.has_many :user_authentications, dependent: :destroy
 
-      base.devise :omniauthable
+      base.devise :omniauthable, omniauth_providers: %i[google_oauth2 twitter]
     end
 
     def apply_omniauth(omniauth)

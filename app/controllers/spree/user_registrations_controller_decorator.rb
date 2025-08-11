@@ -18,4 +18,7 @@ module Spree
   end
 end
 
-::Spree::UserRegistrationsController.prepend(Spree::UserRegistrationsControllerDecorator)
+Rails.application.config.to_prepare do
+  require_dependency 'spree/user_registrations_controller'
+  ::Spree::UserRegistrationsController.prepend(Spree::UserRegistrationsControllerDecorator)
+end
