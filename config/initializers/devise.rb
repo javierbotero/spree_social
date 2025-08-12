@@ -6,6 +6,7 @@ end
 
 OmniAuth.config.logger = Logger.new(STDOUT)
 OmniAuth.logger.progname = 'omniauth'
+OmniAuth.config.allowed_request_methods = [:get, :post]
 
 OmniAuth.config.on_failure = proc do |env|
   env['devise.mapping'] = Devise.mappings[Spree.user_class.table_name.singularize.to_sym]

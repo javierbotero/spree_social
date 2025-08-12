@@ -54,8 +54,7 @@ RSpec.feature 'signing in using Omniauth', :js do
         api_secret: 'fake',
         environment: Rails.env,
         active: true)
-      OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[:twitter] = {
+      OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
         'provider' => 'twitter',
         'uid' => '123545',
         'info' => {
@@ -66,13 +65,53 @@ RSpec.feature 'signing in using Omniauth', :js do
           'token' => 'mock_token',
           'secret' => 'mock_secret'
         }
-      }
+      })
+      SpreeSocial.init_provider('twitter')
     end
 
     scenario 'going to sign in' do
       visit spree.new_spree_user_session_path
-      find('a#twitter').click
+      find('a.d-inline-block.twitter').click
       expect(page).to have_text 'One more step to complete your registration from Twitter'
+      fill_in 'Email', with: 'user@example.com'
+      if Spree.version.to_f < 4.0
+        click_button 'Create'
+        expect(page).to have_text 'Welcome! You have signed up successfully.'
+      elsif Spree.version.to_f > 4.0
+        click_button 'Sign Up'
+        expect(page).to have_text 'Welcome! You have signed up successfully.'
+      end
+    end
+  end
+
+  context 'google_oauth2' do
+    let(:provider) { 'google_oauth2' }
+    background do
+      Spree::AuthenticationMethod.create!(
+        provider: provider,
+        api_key: 'fake',
+        api_secret: 'fake',
+        environment: Rails.env,
+        active: true)
+      OmniAuth.config.mock_auth[provider.to_sym] = OmniAuth::AuthHash.new({
+        'provider' => provider,
+        'uid' => '123545',
+        'info' => {
+          'name' => 'mockuser',
+          'image' => 'mock_user_thumbnail_url'
+        },
+        'credentials' => {
+          'token' => 'mock_token',
+          'secret' => 'mock_secret'
+        }
+      })
+      SpreeSocial.init_provider(provider.to_sym)
+    end
+
+    scenario 'going to sign in' do
+      visit spree.new_spree_user_session_path
+      find("a.d-inline-block.#{provider.to_url}").click
+      expect(page).to have_text "One more step to complete your registration from #{provider.capitalize}"
       fill_in 'Email', with: 'user@example.com'
       if Spree.version.to_f < 4.0
         click_button 'Create'

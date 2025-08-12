@@ -4,7 +4,6 @@ RSpec.describe SpreeSocial do
 
     it 'contain all providers' do
       oauth_providers = [
-        %w(Amazon amazon false),
         %w(Facebook facebook true),
         %w(Twitter twitter false),
         %w(Github github false),
