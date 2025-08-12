@@ -14,4 +14,6 @@ module SpreeSocial
 
     STRING = [MAJOR, MINOR, TINY].compact.join('.')
   end
+
+  Version = VERSION unless const_defined?(:Version)
 end
