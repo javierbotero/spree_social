@@ -1,5 +1,5 @@
-module SpreeSocial
-  module Generators
+module Generators
+  module SpreeSocial
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
 
